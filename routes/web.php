@@ -19,3 +19,4 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', [TesController::class, 'index']);
+Route::get('/sql', [TesController::class, 'sql']);

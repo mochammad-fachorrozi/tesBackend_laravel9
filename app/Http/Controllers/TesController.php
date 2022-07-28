@@ -7,45 +7,51 @@ use Illuminate\Support\Facades\DB;
 
 class TesController extends Controller
 {
-    public function index()
-    {
-        $films = DB::table('films')
-                ->orderBy('nominasi', 'DESC')
-                ->get();
+        public function index()
+        {
+                return view('tes.index');
+        }
 
-        $nominasis = DB::table('films')
-                    ->orderBy('nominasi', 'DESC')
-                    ->limit('1')
-                    ->get();
+        public function sql()
+        {
+                $films = DB::table('films')
+                        ->orderBy('nominasi', 'DESC')
+                        ->get();
 
-        $average = DB::table('films')
-                ->average('pendapatan');
+                $nominasis = DB::table('films')
+                        ->orderBy('nominasi', 'DESC')
+                        ->limit('1')
+                        ->get();
+                // dd($nominasis);
 
-        $akhirN = DB::table('films')
-                ->where('nm_film', 'LIKE', '%N')
-                ->get();
-                
-        $mengandungS = DB::table('films')
-                ->where('nm_film', 'LIKE', '%S%')
-                ->get();
+                $average = DB::table('films')
+                        ->average('pendapatan');
 
-        $tidakMain = DB::table('films')
-                ->join('artis', 'films.artis', '=', 'artis.kd_artis')
-                // ->where('artis.kd_artis', '!=', 'films.artis')
-                ->get();
+                $akhirN = DB::table('films')
+                        ->where('nm_film', 'LIKE', '%N')
+                        ->get();
 
-        $banyakMain = DB::table('films')
-                ->orderBy('nominasi', 'DESC')
-                ->limit('1')
-                ->get();
+                $mengandungS = DB::table('films')
+                        ->where('nm_film', 'LIKE', '%S%')
+                        ->get();
+
+                $tidakMain = DB::table('films')
+                        ->join('artis', 'films.artis', '=', 'artis.kd_artis')
+                        // ->where('artis.kd_artis', '!=', 'films.artis')
+                        ->get();
+
+                $banyakMain = DB::table('films')
+                        ->orderBy('nominasi', 'DESC')
+                        ->limit('1')
+                        ->get();
 
 
-        $genreDrama = DB::table('films')
-                ->join('artis', 'films.artis', '=', 'artis.kd_artis')
-                ->where('films.genre', '=', 'G004')
-                ->get();
+                $genreDrama = DB::table('films')
+                        ->join('artis', 'films.artis', '=', 'artis.kd_artis')
+                        ->where('films.genre', '=', 'G004')
+                        ->get();
 
-        // dd($genreDrama);
-        return view('tes.index', compact('films', 'nominasis', 'average', 'akhirN', 'mengandungS', 'genreDrama'));
-    }
+                // dd($genreDrama);
+                return view('tes.sql', compact('films', 'nominasis', 'average', 'akhirN', 'mengandungS', 'genreDrama'));
+        }
 }
