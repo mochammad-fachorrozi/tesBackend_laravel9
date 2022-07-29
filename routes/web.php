@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\TesController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TesController;
+use App\Http\Controllers\ArtisController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [TesController::class, 'index']);
 Route::get('/sql', [TesController::class, 'sql']);
+
+Route::controller(ArtisController::class)->group(function () {
+    Route::get('/project', 'index');
+    Route::get('/project/create', 'create');
+    Route::post('/project/store', 'store');
+    Route::get('/project/edit/{id}', 'edit');
+    Route::post('/project/update', 'update');
+    Route::get('/project/delete/{id}', 'destroy');
+});
